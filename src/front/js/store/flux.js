@@ -30,48 +30,6 @@ const getState = ({ getStore, getActions, setStore }) => {
       exampleFunction: () => {
         getActions().changeColor(0, "green");
       },
-      tokenForLogin2: () => {
-        const token = sessionStorage.getItem("token");
-        console.log("Token para login");
-        if (token && token != "" && token != undefined) {
-          setStore({ token: token });
-        }
-      },
-      logOut2: () => {
-        sessionStorage.removeItem("token");
-        console.log("Login out");
-        setStore({ token: null });
-      },
-
-      login2: async (email, password) => {
-        const options = {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            email: email,
-            password: password,
-          }),
-        };
-        try {
-          const resp = await fetch("http://127.0.0.1:3001/api/login", options);
-          if (resp.status !== 200) {
-            alert("Error");
-            return false;
-          }
-          const data = await resp.json();
-          console.log("backend", data);
-          sessionStorage.setItem("token", data.access_token);
-          setStore({ token: data.access_token });
-
-          return true;
-        } catch (error) {
-          console.log.error("Error de login");
-        }
-      },
-
-      //---- funcion para  login  de usuario------------------------------------------->
       Login: async (e, navigate) => {
         e.preventDefault();
         try {
